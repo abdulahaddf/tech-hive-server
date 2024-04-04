@@ -76,14 +76,24 @@ async function run() {
     });
 
 //adding phone
-    app.post("/phone", async (req, res) => {
+app.post("/addPhone", async (req, res) => {
+  try {
       const newPhone = req.body;
-    //   newPhone.price = parseFloat(req.body.price)
-      newPhone.createAt = new Date();
-      console.log(newPhone);
-      const result = await phoneCollection.insertOne(newPhone);
-      res.send(result);
-    });
+console.log(newPhone);
+      if (Object.keys(newPhone).length > 2) {
+          newPhone.createdAt = new Date();
+          console.log(newPhone);
+          const result = await phoneCollection.insertOne(newPhone);
+          console.log(result)
+          res.send({ acknowledged: true, message: "Phone added successfully" });
+        }
+        // res.send({ acknowledged: false, message: "Phone is not added" });
+  } catch (error) {
+      console.error("Error adding phone:", error);
+      res.status(500).send("Error adding phone");
+  }
+});
+
 
 
     // delete phone
