@@ -28,6 +28,7 @@ const client = new MongoClient(uri, {
   },
 });
 
+
 async function run() {
   try {
     const phoneCollection = client.db("phoneDB").collection("phones");
