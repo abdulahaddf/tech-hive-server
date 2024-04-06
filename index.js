@@ -13,6 +13,7 @@ app.use(
 );
 app.use(express.json());
 
+
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@phonedb.ap54ge1.mongodb.net/?retryWrites=true&w=majority&appName=PhoneDB`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
