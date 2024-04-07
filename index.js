@@ -13,7 +13,6 @@ app.use(
 );
 app.use(express.json());
 
-
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@phonedb.ap54ge1.mongodb.net/?retryWrites=true&w=majority&appName=PhoneDB`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -54,6 +53,33 @@ async function run() {
         console.error("Error adding phone:", error);
         res.status(500).send("Error adding phone");
       }
+    });
+    //get all phones
+    app.get("/phones", async (req, res) => {
+      const result = await phoneCollection
+        .find()
+        .sort({ createAt: -1 })
+        .toArray();
+      res.send(result);
+    });
+    //get phone by ID
+    app.get("/phone/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await phoneCollection.findOne(query);
+      res.send(result);
+    });
+
+    //get by brand
+    app.get("/phonesCategory/:brand", async (req, res) => {
+      console.log(req.params.id);
+      const result = await phoneCollection
+        .find({
+          brand: req.params.brand,
+        })
+        // .limit(6)
+        .toArray();
+      res.send(result);
     });
 
     // Send a ping to confirm a successful connection

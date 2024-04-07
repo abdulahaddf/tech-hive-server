@@ -1,31 +1,4 @@
-//get all phones
-app.get("/phones", async (req, res) => {
-    const result = await phoneCollection
-      .find()
-      .sort({ createAt: -1 })
-      .limit(20)
-      .toArray();
-    res.send(result);
-  });
-//get phone by ID
-  app.get("/phone/:id", async (req, res) => {
-    const id = req.params.id;
-    const query = { _id: new ObjectId(id) };
-    const result = await phoneCollection.findOne(query);
-    res.send(result);
-  });
 
-//get by brand
-  app.get("/phonesCategory/:brand", async (req, res) => {
-    console.log(req.params.id);
-    const result = await phoneCollection
-      .find({
-          brand: req.params.brand,
-      })
-      // .limit(6)
-      .toArray();
-    res.send(result);
-  });
 
 
 //search phone
