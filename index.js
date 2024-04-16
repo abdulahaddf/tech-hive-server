@@ -54,6 +54,7 @@ async function run() {
         res.status(500).send("Error adding phone");
       }
     });
+    
     //get all phones
     app.get("/phones", async (req, res) => {
       const result = await phoneCollection
